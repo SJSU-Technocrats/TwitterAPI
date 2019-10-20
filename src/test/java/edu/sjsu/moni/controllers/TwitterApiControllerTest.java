@@ -1,5 +1,6 @@
 package edu.sjsu.moni.controllers;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -57,4 +58,16 @@ class TwitterApiControllerTest {
 		String deleteTweet = controller.deleteTweet(response.getId());
 		assertTrue("Successfully Deleted!".equalsIgnoreCase(deleteTweet));
 	}	
-}
+	@Test
+	@Order(4)
+	void testCreateTweetNegative(){
+		request.setText("");
+	    try{response = controller.createTweet(request);}
+	    catch (Exception e) {
+	    	response = null;
+	    }
+	    assertNull(response);
+		
+		}
+	}
+
