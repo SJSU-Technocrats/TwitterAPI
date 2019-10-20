@@ -2,6 +2,8 @@ package edu.sjsu.moni.models;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+@Component
 public class TweetResponse {
     private String id;
     private String text;
