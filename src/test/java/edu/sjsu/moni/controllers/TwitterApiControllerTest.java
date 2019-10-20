@@ -6,9 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Random;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -16,6 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.StringUtils;
 
 import edu.sjsu.moni.models.TweetRequest;
 import edu.sjsu.moni.models.TweetResponse;
@@ -36,17 +44,21 @@ class TwitterApiControllerTest {
 	@Autowired
 	TweetRequest request;
 
-	@Test
-	@Order(1)
-	void testCreateTweet() throws TwitterException {
+	@BeforeEach
+	void setUp() throws Exception {
 		request.setText("Test Tweet " + new Random().nextInt());
 		response = controller.createTweet(request);
+	}
+
+	@Test
+	@Order(1)
+	void testCreateTweetPositiveTestCase() throws TwitterException {
 		assertNotNull(response.getId(), "Twitter Id is not null");
 	}
 
 	@Test
 	@Order(2)
-	void testGetTweet() {
+	void testGetTweetPositiveTestCase() {
 		String id = response.getId();
 		response = controller.getTweet(id);
 		assertTrue(id.equalsIgnoreCase(response.getId()));
@@ -54,14 +66,14 @@ class TwitterApiControllerTest {
 
 	@Test
 	@Order(3)
-	void testDeleteTweet() throws TwitterException {
+	void testDeleteTweetPositiveTestCase() throws TwitterException {
 		String deleteTweet = controller.deleteTweet(response.getId());
 		assertTrue("Successfully Deleted!".equalsIgnoreCase(deleteTweet));
 	}
 
 	@Test
 	@Order(4)
-	void testCreateTweetNegative() {
+	void testCreateTweetNegativeTestCase() {
 		request.setText("");
 		try {
 			response = controller.createTweet(request);
@@ -74,7 +86,7 @@ class TwitterApiControllerTest {
 
 	@Test
 	@Order(5)
-	void testGetTweetNegative() {
+	void testGetTweetNegativeTestCase() {
 		try {
 			response = controller.getTweet(null);
 		} catch (Exception e) {
@@ -85,7 +97,7 @@ class TwitterApiControllerTest {
 
 	@Test
 	@Order(6)
-	void testDeleteTweetNegative() {
+	void testDeleteTweetNegativeTestCase() {
 		String delete;
 		try {
 			delete = controller.deleteTweet(null);
@@ -94,5 +106,4 @@ class TwitterApiControllerTest {
 		}
 		assertTrue("Successfully Deleted!".equalsIgnoreCase(delete));
 	}
-
 }

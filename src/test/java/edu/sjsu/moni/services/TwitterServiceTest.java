@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +18,29 @@ import twitter4j.TwitterException;
 
 @SpringBootTest
 class TwitterServiceTest {
-	
-	@Autowired 
+
+	@Autowired
 	TwitterService service;
+	
 	@Autowired
 	TweetResponse response;
+	
 	@Autowired
 	TweetRequest request;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		request.setText("Test Tweet " + new Random().nextInt());
+		response = service.createTweet(request);
+	}
 	
 	@Order(1)
 	@Test
 	void testCreateTweet() throws TwitterException {
-		request.setText("Test Tweet " + new Random().nextInt());
-		response = service.createTweet(request);
 		assertNotNull(response.getId(), "Twitter Id is not null");
-		
+
 	}
-	
+
 	@Order(2)
 	@Test
 	void testGetTweet() throws TwitterException {
@@ -41,14 +48,14 @@ class TwitterServiceTest {
 		response = service.getTweet(id);
 		assertTrue(id.equalsIgnoreCase(response.getId()));
 	}
-	
+
 	@Order(3)
 	@Test
 	void testDeleteTweet() throws TwitterException {
 		String id = service.deleteTweet(response.getId());
 		assertTrue(id.equalsIgnoreCase("Successfully Deleted!"));
 	}
-	
+
 	@Order(4)
 	@Test
 	void testCreateTweetNegative() {
@@ -60,7 +67,7 @@ class TwitterServiceTest {
 		}
 		assertNull(response);
 	}
-	
+
 	@Order(5)
 	@Test
 	void testGetTweetNegative() {
@@ -71,7 +78,7 @@ class TwitterServiceTest {
 		}
 		assertNull(response);
 	}
-	
+
 	@Order(6)
 	@Test
 	void testDeleteTweetNegative() {
