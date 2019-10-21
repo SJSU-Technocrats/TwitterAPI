@@ -6,9 +6,12 @@ import edu.sjsu.moni.models.User;
 import twitter4j.GeoLocation;
 import twitter4j.Status;
 
+/**
+ * @author monica dommaraju
+ */
 public class TwitterUtil {
 
-    public static TweetResponse getTweetResponse(Status status) {
+    protected static TweetResponse getTweetResponse(Status status) {
         TweetResponse response = new TweetResponse();
         response.setId(String.valueOf(status.getId()));
         response.setText(status.getText());
