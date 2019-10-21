@@ -1,6 +1,8 @@
 package edu.sjsu.moni.models;
 
+// Author Sruthi Chilukuri
 public class User {
+
     private String name;
     private String screenName;
     private String location;
@@ -54,5 +56,17 @@ public class User {
 
     public void setFriendsCount(int friendsCount) {
         this.friendsCount = friendsCount;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", screenName='" + screenName + '\'' +
+                ", location='" + location + '\'' +
+                ", url='" + url + '\'' +
+                ", followersCount=" + followersCount +
+                ", friendsCount=" + friendsCount +
+                '}';
     }
 }

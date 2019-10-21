@@ -1,5 +1,6 @@
 package edu.sjsu.moni.models;
 
+// Author Sruthi Chilukuri
 public class TweetRequest {
     private String text;
     private Geo geo;
@@ -18,5 +19,13 @@ public class TweetRequest {
 
     public void setGeo(Geo geo) {
         this.geo = geo;
+    }
+
+    @Override
+    public String toString() {
+        return "TweetRequest{" +
+                "text='" + text + '\'' +
+                ", geo=" + geo +
+                '}';
     }
 }

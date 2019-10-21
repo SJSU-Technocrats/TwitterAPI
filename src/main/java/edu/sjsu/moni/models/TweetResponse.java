@@ -2,6 +2,7 @@ package edu.sjsu.moni.models;
 
 import java.util.Date;
 
+// Author Sruthi Chilukuri
 public class TweetResponse {
     private String id;
     private String text;
@@ -47,5 +48,16 @@ public class TweetResponse {
 
     public void setGeo(Geo geo) {
         this.geo = geo;
+    }
+
+    @Override
+    public String toString() {
+        return "TweetResponse{" +
+                "id='" + id + '\'' +
+                ", text='" + text + '\'' +
+                ", user=" + user +
+                ", createdAt=" + createdAt +
+                ", geo=" + geo +
+                '}';
     }
 }

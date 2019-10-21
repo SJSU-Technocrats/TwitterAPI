@@ -1,6 +1,8 @@
 package edu.sjsu.moni.models;
 
+// Author Sruthi Chilukuri
 public class Geo {
+
     private Double lat;
     private Double lon;
 
@@ -18,5 +20,13 @@ public class Geo {
 
     public void setLon(Double lon) {
         this.lon = lon;
+    }
+
+    @Override
+    public String toString() {
+        return "Geo{" +
+                "lat=" + lat +
+                ", lon=" + lon +
+                '}';
     }
 }
